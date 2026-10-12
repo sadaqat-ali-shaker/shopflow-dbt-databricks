@@ -25,5 +25,23 @@ jobs:
           python -m pip install --upgrade pip
           pip install dbt-databricks==1.12.6
 
+      - name: Create CI profile
+        run: |
+          mkdir -p ~/.dbt
+          cat > ~/.dbt/profiles.yml <<'EOF'
+          shopflow:
+            target: ci
+            outputs:
+              ci:
+                type: databricks
+                host: https://example.cloud.databricks.com
+                http_path: /sql/1.0/warehouses/ci-placeholder
+                catalog: ci_catalog
+                schema: ci_schema
+                token: ci-placeholder
+                threads: 1
+          EOF
+
       - name: Validate dbt project
-        run: dbt parse --project-dir shopflow
+        run: dbt parse --project-dir shopflow --profiles-dir ~/.dbt
+
