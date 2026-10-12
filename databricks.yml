@@ -1,0 +1,17 @@
+
+bundle:
+  name: shopflow-dbt-databricks
+
+workspace:
+  host: https://dbc-d6052f36-ea55.cloud.databricks.com
+
+resources:
+  jobs:
+    shopflow_dbt_job:
+      name: shopflow-dbt-pipeline
+
+      tasks:
+        - task_key: run_dbt_pipeline
+          notebook_task:
+            notebook_path: /Workspace/Users/${workspace.current_user.userName}/shopflow_dbt_pipeline
+            source: WORKSPACE
