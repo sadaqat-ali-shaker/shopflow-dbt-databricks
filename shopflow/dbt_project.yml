@@ -32,8 +32,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 
 models:
   shopflow:
-    example:
-      +materialized: view
     silver:
       +materialized: view
     intermediate:
